@@ -15,6 +15,7 @@
 		6C1E7994236C842B00246766 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C1E7992236C842B00246766 /* LaunchScreen.storyboard */; };
 		6C1E799F236C842B00246766 /* TutorialAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1E799E236C842B00246766 /* TutorialAppTests.swift */; };
 		6C1E79AA236C842B00246766 /* TutorialAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1E79A9236C842B00246766 /* TutorialAppUITests.swift */; };
+		834D823E236DFDDF00A128DD /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834D823D236DFDDF00A128DD /* Home.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		6C1E79A5236C842B00246766 /* TutorialAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TutorialAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C1E79A9236C842B00246766 /* TutorialAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialAppUITests.swift; sourceTree = "<group>"; };
 		6C1E79AB236C842B00246766 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		834D823D236DFDDF00A128DD /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				6C1E7987236C842800246766 /* AppDelegate.swift */,
 				6C1E7989236C842800246766 /* SceneDelegate.swift */,
 				6C1E798B236C842800246766 /* ContentView.swift */,
+				834D823D236DFDDF00A128DD /* Home.swift */,
 				6C1E798D236C842B00246766 /* Assets.xcassets */,
 				6C1E7992236C842B00246766 /* LaunchScreen.storyboard */,
 				6C1E7995236C842B00246766 /* Info.plist */,
@@ -269,6 +272,7 @@
 			files = (
 				6C1E7988236C842800246766 /* AppDelegate.swift in Sources */,
 				6C1E798A236C842800246766 /* SceneDelegate.swift in Sources */,
+				834D823E236DFDDF00A128DD /* Home.swift in Sources */,
 				6C1E798C236C842800246766 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -366,7 +370,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -420,7 +424,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -438,6 +442,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"TutorialApp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = TutorialApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -457,6 +462,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"TutorialApp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = TutorialApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
