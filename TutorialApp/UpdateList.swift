@@ -11,47 +11,60 @@ import SwiftUI
 struct UpdateList: View {
     @State var showSettings = false
     var updates = updateData
+    @ObservedObject var store = UpdateStore()
+    
+    func addUpdate() {
+        store.updates.append(Update(image: "Certificate2", title: "SwiftUI Advanced", text: "This course will focus on API data.", date: "JUL 26"))
+    }
+    
+    func move(from source: IndexSet, to destination: Int) {
+        store.updates.swapAt(source.first!, destination)
+    }
     
     var body: some View {
         NavigationView {
-            List(updates) { item in
-                NavigationLink(destination:
-                    UpdateDetail(title: item.title, text: item.text, image: item.image)
-                ) {
-                    HStack(spacing: 12) {
-                        Image(item.image)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 80, height: 80)
-                            .background(Color("background"))
-                            .cornerRadius(20)
-                        
-                        VStack(alignment: .leading) {
-                            Text(item.title)
-                                .font(.headline)
-                            Text(item.text)
-                                .lineLimit(2)
-                                .lineSpacing(4)
-                                .font(.subheadline)
-                                .frame(height: 50.0)
-                            Text(item.date)
-                                .font(.caption)
-                                .fontWeight(.bold)
-                                .foregroundColor(Color.gray)
+            List{
+                ForEach(store.updates) { item in
+                    NavigationLink(destination:
+                        UpdateDetail(title: item.title, text: item.text, image: item.image)
+                        ) {
+                        HStack(spacing: 12) {
+                            Image(item.image)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 80, height: 80)
+                                .background(Color("background"))
+                                .cornerRadius(20)
+                            
+                            VStack(alignment: .leading) {
+                                Text(item.title)
+                                    .font(.headline)
+                                Text(item.text)
+                                    .lineLimit(2)
+                                    .lineSpacing(4)
+                                    .font(.subheadline)
+                                    .frame(height: 50.0)
+                                Text(item.date)
+                                    .font(.caption)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color.gray)
+                            }
                         }
                     }
+                    
+                    .padding(.vertical, 8.0)
                 }
-                .padding(.vertical, 8.0)
+                .onDelete {
+                    index in self.store.updates.remove(at: index.first!)
+                }
+                .onMove(perform: move)
             }
             .navigationBarTitle(Text("Updates"))
-            .navigationBarItems(trailing:
-                Button(action: { self.showSettings.toggle() }) {
-                    Image(systemName: "gear")
-                        .sheet(isPresented: self.$showSettings) {
-                            Text("Settings")
-                    }
-                }
-                
+            .navigationBarItems(
+                leading: Button(action: addUpdate) {
+                    Text("Add Update")
+                },
+                trailing: EditButton()
             )
         }
     }
