@@ -12,54 +12,66 @@ struct ContentView: View {
     
     @State var show = false
     @State var viewState = CGSize.zero
+    @State var showCard = false
+    @State var bottomState = CGSize.zero
+    @State var showFull = false
     
     var body: some View {
         ZStack {
             BlurView(style: .extraLight)
             
             TitleView()
-                .blur(radius: show ? 20 : 0)
-                .animation(.default)
-            
-            CardBottomView()
-                .blur(radius: show ? 20 : 0)
-                .animation(.default)
-            
-            CardView()
+                .blur(radius: showCard ? 20 : 0)
+                .opacity(showCard ? 0.4 : 1)
+                .offset(y: showCard ? -200 : 0)
+                .animation(Animation
+                            .default
+                            .delay(0.1)
+//                    .speed(2)
+//                    .repeatForever(autoreverses: false)
+            )
+                        
+            BackCardView()
+                .frame(width: showCard ? 300 : 340.0, height: 220.0)
                 .background(show ? Color.green : Color.blue)
                 .cornerRadius(10)
                 .shadow(radius: 20)
                 .offset(x: 0, y: show ? -400 : -40 )
-                .scaleEffect(0.85)
-                .rotationEffect(Angle(degrees: show ? 15 : 0))
-//                .rotation3DEffect(Angle(degrees: show ? 50 : 0), axis:
-//                    (x: 10.0, y: 10.0, z: 10.0))
+                .offset(y: showCard ? -180 : 0)
+                .scaleEffect(showCard ? 1 : 0.9)
+                .rotationEffect(Angle(degrees: show ? 0 : 10))
+                .rotationEffect(Angle(degrees: showCard ? -10 : 0))
+                .rotation3DEffect(Angle(degrees: showCard ? 0 : 10), axis: (x: 10.0, y: 0, z: 0))
                 .blendMode(.hardLight)
                 .animation(.easeInOut(duration: 0.7))
             .offset(x: viewState.width, y: viewState.height)
             
-            CardView()
+            BackCardView()
+                .frame(width: 340.0, height: 220.0)
                 .background(show ? Color.red : Color.green)
                 .cornerRadius(10)
                 .shadow(radius: 20)
                 .offset(x: 0 , y: show ? -200 : -20)
-                .scaleEffect(0.9)
-                .rotationEffect(Angle(degrees: show ? 10 : 0))
-//                .rotation3DEffect(Angle(degrees: show ? 40 : 0), axis:
-//                    (x: 10.0, y: 10.0, z: 10.0))
+                .offset(y: showCard ? -140 : 0)
+                .scaleEffect(showCard ? 1 : 0.95)
+                .rotationEffect(Angle(degrees: show ? 0 : 5))
+                .rotationEffect(Angle(degrees: showCard ? -5 : 0))
+                .rotation3DEffect(Angle(degrees: showCard ? 0 : 5), axis: (x: 10.0, y: 0, z: 0))
                 .blendMode(.hardLight)
                 .animation(.easeInOut(duration: 0.5))
             .offset(x: viewState.width, y: viewState.height)
             
             CertificateView()
+                .frame(width: showCard ? 375.0 : 340.0, height: 220.0)
+                .background(Color.black)
+                .clipShape(RoundedRectangle(cornerRadius: showCard ? 30 : 20, style: .continuous))
+                .shadow(radius: 20)
                 .offset(x: viewState.width, y: viewState.height)
-                .scaleEffect(0.95)
+                .offset(y: showCard ? -100 : 0)
                 .rotationEffect(Angle(degrees: show ? 5 : 0))
-//                .rotation3DEffect(Angle(degrees: show ? 30 : 0), axis:
-//                    (x: 10.0, y: 10.0, z: 10.0))
                 .animation(.spring())
                 .onTapGesture {
-                    self.show.toggle()
+                    self.showCard.toggle()
                 }
             .gesture(
                 DragGesture()
@@ -72,6 +84,37 @@ struct ContentView: View {
                     self.show = false
                 }
             )
+            
+            CardBottomView()
+                .offset(y: showCard ? 360 : 1000.0)
+                .offset(y: bottomState.height)
+                .blur(radius: show ? 20 : 0)
+                .animation(.timingCurve(0.2, 0.8, 0.2, 1, duration: 0.8))
+                .gesture(
+                    DragGesture()
+                        .onChanged { value in
+                            self.bottomState = value.translation
+                            if (self.showFull) {
+                                self.bottomState.height += -300
+                            }
+                            if self.bottomState.height < -300 {
+                                self.bottomState.height = -300
+                            }
+                            
+                    }
+                    .onEnded { value in
+                        if self.bottomState.height > 50 {
+                            self.showCard = false
+                        }
+                        if (self.bottomState.height < -100 && !self.showFull) || (self.bottomState.height < -250 && self.showFull) {
+                            self.bottomState.height = -300
+                            self.showFull = true
+                        } else {
+                            self.showFull = false
+                            self.bottomState = .zero
+                        }
+                    }
+            )
         }
     }
 }
@@ -82,13 +125,13 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-struct CardView: View {
+struct BackCardView: View {
     var body: some View {
         VStack {
             Text("Card Back")
             
         }
-        .frame(width: 340.0, height: 220.0)
+        
     }
 }
 
@@ -114,10 +157,6 @@ struct CertificateView: View {
             Spacer()
             Image("Background")
         }
-        .frame(width: 340.0, height: 220.0)
-        .background(Color.black)
-        .cornerRadius(10)
-        .shadow(radius: 20)
     }
 }
 
@@ -155,6 +194,5 @@ struct CardBottomView: View {
         .background(Color.white)
         .cornerRadius(30)
         .shadow(radius: 20)
-        .offset(y: 600.0)
     }
 }
