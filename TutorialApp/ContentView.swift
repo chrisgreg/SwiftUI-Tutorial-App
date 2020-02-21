@@ -25,12 +25,12 @@ struct ContentView: View {
                 .opacity(showCard ? 0.4 : 1)
                 .offset(y: showCard ? -200 : 0)
                 .animation(Animation
-                            .default
-                            .delay(0.1)
-//                    .speed(2)
-//                    .repeatForever(autoreverses: false)
+                    .default
+                    .delay(0.1)
+                    //                    .speed(2)
+                    //                    .repeatForever(autoreverses: false)
             )
-                        
+            
             BackCardView()
                 .frame(width: showCard ? 300 : 340.0, height: 220.0)
                 .background(show ? Color.green : Color.blue)
@@ -44,7 +44,7 @@ struct ContentView: View {
                 .rotation3DEffect(Angle(degrees: showCard ? 0 : 10), axis: (x: 10.0, y: 0, z: 0))
                 .blendMode(.hardLight)
                 .animation(.easeInOut(duration: 0.7))
-            .offset(x: viewState.width, y: viewState.height)
+                .offset(x: viewState.width, y: viewState.height)
             
             BackCardView()
                 .frame(width: 340.0, height: 220.0)
@@ -59,7 +59,7 @@ struct ContentView: View {
                 .rotation3DEffect(Angle(degrees: showCard ? 0 : 5), axis: (x: 10.0, y: 0, z: 0))
                 .blendMode(.hardLight)
                 .animation(.easeInOut(duration: 0.5))
-            .offset(x: viewState.width, y: viewState.height)
+                .offset(x: viewState.width, y: viewState.height)
             
             CertificateView()
                 .frame(width: showCard ? 375.0 : 340.0, height: 220.0)
@@ -72,7 +72,7 @@ struct ContentView: View {
                 .animation(.spring())
                 .onTapGesture {
                     self.showCard.toggle()
-                }
+            }
             .gesture(
                 DragGesture()
                     .onChanged { value in
